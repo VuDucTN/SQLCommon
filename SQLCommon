@@ -1,0 +1,150 @@
+SELECT * FROM playgame.player;
+
+-- INSERT INTO Begin
+
+-- Nhập dữ liệu cho tất cả các cột
+insert into player value (7,"ducTnv", "123",now(),0, "2004-10-05");
+
+-- Nhập dữ liệu cho các cột chỉ định
+insert into player (username, password, gold,birthday) 
+	value ("nam123","123",0,"2003-05-20");
+    
+-- Nhập nhiều dữ liệu cùng lúc
+insert into player 
+	values 
+	(null,"nam203", "123", now(), 0, "2003-10-20"),
+    (null,"tuan77", "123", now(), 0, "2005-10-05"),
+    (null,"tuong03", "123", now(), 0, "2004-12-21");
+
+
+insert into games values 
+	(null,"ductnv", 10, 3),
+    (null, "ducTNV",25, 7),
+    (null, "duc202",1, 0),
+    (null, "duc21",3, 1),
+    (null, "nam123",50, 24),
+    (null, "ducTnv",82, 100);
+-- INSERT INTO end
+
+-- SELECT Begin
+
+-- Select All
+Select * from player;
+
+-- Select 1 cột
+Select username from player;
+
+-- Select nhiều cột
+Select username, password, birthday from player;
+
+-- SELECT End
+
+
+-- Update Begin
+
+-- Update dữ liệu của cột theo id
+Update player set password = 321 where id = 10;
+
+-- Update tất cả dữ liệu
+Update player set gold = 1;
+
+-- Update dữ liệu của cột theo giá trị của cột khác
+Update player set gold = 10 where username = "ductnv";
+-- Phân biệt chữ hoa và chữ thường bằng binary
+Update player set gold = 100 where binary username = "ducTNV";
+
+-- Update End
+
+-- Delete Begin
+-- xóa dữ liệu của cột theo id
+Delete from player where id = 3;
+
+-- Xóa toàn bộ dữ liệu
+Delete from player;
+
+-- Delete End
+
+-- Select top (Limit in Mysql) Begin
+-- Hiển thị số lượng dữ liệu trả về là 3 
+select * from player Limit 3;
+
+-- Hiển thị số lượng trả về với where
+select * from player where gold >= 10 Limit 2 ;
+
+-- Select top (Limit in Mysql) End
+
+-- DISTINCT
+-- Hiển thị các dữ liệu không bị trùng nhau
+Select distinct gold from player;
+
+-- ORDER BY Begin
+-- sắp xếp ngày tháng năm
+Select * from player order by birthday;
+
+-- sắp xếp theo tên
+Select * from player order by username;
+
+-- ORDER BY End
+
+-- GROUP BY Begin
+-- Nhóm các username có cùng số lượng gold
+Select count(username) as users, gold from player group by gold;
+
+-- GROUP BY End
+
+-- AND & OR Begin
+-- AND
+Select * from player where username = "ductnv" and gold > 0;
+
+-- OR
+Select * from player where username = "ductnv" or gold > 0;
+
+-- AND & OR End
+
+-- JOINs Begin
+-- Inner join
+Select player.username, player.gold, games.level, games.round From player inner join games on binary player.username = games.username;
+
+-- LEFT JOIN
+Select player.username, player.gold, games.level, games.round From player left join games on binary player.username = games.username;
+
+-- Right Join
+Select player.username, player.gold, games.level, games.round From player right join games on binary player.username = games.username;
+
+-- Cross Join
+Select player.username, player.gold, games.level, games.round From player cross join games on binary player.username = games.username;
+-- JOINs End
+
+-- VIEW Begin
+-- Tạo view
+Create view user as select * from player where gold > 1;
+select * from user;
+
+-- Thay đổi view
+Alter view user as select * from player where gold > 10;
+
+-- Đổi tên view
+Rename table user to GoldOfUser;
+select * from GoldOfUser;
+
+-- Xóa view
+Drop view if exists GoldOfUser;
+-- View End
+
+
+-- Subquery
+Select * From player where gold = (Select min(gold) from player);
+Select * from player where gold not in (select gold from player where gold = 10);
+Select * from player where username  not in (select username from player where username = "ducTNV");
+Select count(username) as totalUser, sum(gold) as totalGold from (Select username, gold from player where gold <= 10) as total;
+
+-- CASE begin
+Select player.username, player.gold, games.level ,
+case  
+	when gold = 1 then 'Vip 1'
+    when gold = 10 then 'Vip 2'
+    when gold = 100 then 'Vip 3'
+else 'Vip 0'
+End as VIP
+from player inner join games on binary player.username = games.username;
+
