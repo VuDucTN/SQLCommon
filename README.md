@@ -1,0 +1,2 @@
+# SQLCommon
+[Report SQLCommon](https://bapjsc-my.sharepoint.com/personal/loint_bap_jp/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Floint%5Fbap%5Fjp%2FDocuments%2FSW%2EDIV2%2FDIV2%2ERD%2F04%2EIntern%2DFresher%2F202311%5FBlockChain%26Backend%5FInternship%2F06%2EUsers%2FDucTNV%5FReport%5FSQL%5FCommon%2Epdf&parent=%2Fpersonal%2Floint%5Fbap%5Fjp%2FDocuments%2FSW%2EDIV2%2FDIV2%2ERD%2F04%2EIntern%2DFresher%2F202311%5FBlockChain%26Backend%5FInternship%2F06%2EUsers)
